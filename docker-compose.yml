@@ -1,0 +1,46 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+    mysql:
+      image: mysql:5.7
+      container_name: credit-card-mysql
+      working_dir: /application
+      volumes:
+        - .:/application
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=credit-card
+        - MYSQL_USER=credit-card
+        - MYSQL_PASSWORD=credit-card
+      ports:
+        - "8082:3306"
+
+    webserver:
+      image: nginx:alpine
+      container_name: credit-card-webserver
+      working_dir: /application
+      volumes:
+          - .:/application
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "8080:80"
+
+    php-fpm:
+      build: phpdocker/php-fpm
+      container_name: credit-card-php-fpm
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
+
+    php-cli:
+        build: phpdocker/php-cli
+        container_name: credit-card-php-cli
+        working_dir: /application
+        volumes:
+            - .:/application
+            - ./phpdocker/php-cli/php-ini-overrides.ini:/etc/php/7.3/cli/conf.d/99-overrides.ini
+

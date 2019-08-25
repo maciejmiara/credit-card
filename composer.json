@@ -1,0 +1,25 @@
+{
+  "name": "tsh/credit-card",
+  "type": "project",
+  "description": "Agnostic credit card app",
+  "license": "MIT",
+  "require": {
+    "php": "^7.3.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    },
+    "exclude-from-classmap": ["/spec/"]
+  },
+  "require-dev": {
+    "phpspec/phpspec": "^5.1"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
