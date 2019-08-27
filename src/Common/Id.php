@@ -4,7 +4,7 @@ namespace Common;
 
 use Common\Exception\InvalidIdException;
 
-class Id
+class Id implements \JsonSerializable
 {
     private $id;
 
@@ -24,6 +24,11 @@ class Id
     }
 
     public function __toString()
+    {
+        return $this->id;
+    }
+
+    public function jsonSerialize()
     {
         return $this->id;
     }

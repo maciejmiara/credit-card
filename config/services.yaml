@@ -23,5 +23,22 @@ services:
         resource: '../src/Infrastructure/Framework/Controller'
         tags: ['controller.service_arguments']
 
+    Infrastructure\Doctrine\Transformer\:
+        resource: '../src/Infrastructure/Doctrine/Transformer/*'
+
+    Domain\Repository\:
+        resource: '../src/Domain/Repository/*'
+
+    Infrastructure\Doctrine\Repository\:
+        resource: '../src/Infrastructure/Doctrine/Repository/*'
+
+    Application\Handler\:
+        resource: '../src/Application/Handler/*'
+        tags:
+            - { name: tactician.handler, typehints: true }
+
+    Domain\Repository\CreditCardRepository:
+        alias: Infrastructure\Doctrine\Repository\CreditCardRepository
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Domain\Repository;
 
 use Common\Id;
+use Domain\Exception\CreditCardNotFoundException;
 use Domain\Model\Client;
 use Domain\Model\CreditCard;
 
@@ -13,14 +14,18 @@ interface CreditCardRepository
     /**
      * @param Id $id
      *
-     * @return CreditCard|null
+     * @throws CreditCardNotFoundException
+     * @return CreditCard
      */
-    public function findById(Id $id): ?CreditCard;
+    public function getById(Id $id): CreditCard;
 
     /**
-     * @param Client $client
-     *
      * @return CreditCard[]
      */
-    public function findByClient(Client $client): array;
+    public function findAll(): array;
+
+    /**
+     * @param CreditCard $card
+     */
+    public function save(CreditCard $card): void;
 }

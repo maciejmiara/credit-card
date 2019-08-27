@@ -17,20 +17,24 @@ class CreditCard
     /** @var Client */
     private $client;
 
-    /** @var ?int */
+    /** @var int|null */
     private $limit;
 
-    /** @var int */
+    /** @var int|null */
     private $availableAmount;
 
     /**
      * @param Id $id
      * @param Client $client
+     * @param int|null $limit
+     * @param int|null $availableAmount
      */
-    public function __construct(Id $id, Client $client)
+    public function __construct(Id $id, Client $client, ?int $limit = null, ?int $availableAmount = null)
     {
         $this->id = $id;
         $this->client = $client;
+        $this->limit = $limit;
+        $this->availableAmount = $availableAmount;
     }
 
     /**
@@ -39,6 +43,22 @@ class CreditCard
     public function getId(): Id
     {
         return $this->id;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLimit(): ?int
+    {
+        return $this->limit;
     }
 
     /**
@@ -58,14 +78,9 @@ class CreditCard
 
     /**
      * @return int
-     * @throws LimitNotAssignedException
      */
-    public function getAvailableAmount(): int
+    public function getAvailableAmount(): ?int
     {
-        if (null === $this->limit) {
-            throw LimitNotAssignedException::forCard($this);
-        }
-
         return $this->availableAmount;
     }
 
